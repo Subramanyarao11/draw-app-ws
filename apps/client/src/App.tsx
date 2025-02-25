@@ -18,7 +18,7 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3000');
+    const newSocket = io(import.meta.env.VITE_API_URL || window.location.origin);
     setSocket(newSocket);
     return () => {
       newSocket.disconnect();
