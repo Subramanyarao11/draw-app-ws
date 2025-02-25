@@ -13,13 +13,18 @@
             "use": "@vercel/static"
         }
     ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/apps/api/src/main.ts",
-            "methods": [
-                "GET"
-            ]
-        }
-    ]
+   "routes": [
+    {
+      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|svg|webp)$)",
+      "dest": "apps/client/dist/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "apps/api/dist/main.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "apps/client/dist/index.html"
+    }
+  ]
 }

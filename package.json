@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
+    "build": "turbo run build --filter=api --filter=client",
     "start": "node apps/api/dist/main"
   },
   "packageManager": "npm@10.7.0"
