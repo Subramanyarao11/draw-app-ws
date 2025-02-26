@@ -1,11 +1,13 @@
 import React from 'react';
 import { SocketProvider } from './context/SocketContext';
+import Whiteboard from './components/WhiteBoard';
+import './App.css';
 
 const App: React.FC = () => {
   return (
     <SocketProvider>
       <div className="app">
-        <h1>Collaborative Whiteboard</h1>
+        <Whiteboard />
       </div>
     </SocketProvider>
   );
