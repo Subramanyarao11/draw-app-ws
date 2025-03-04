@@ -47,13 +47,14 @@ const Whiteboard: React.FC = () => {
     if (!toolType) return;
 
     const element = createElement({
-      x1: clientX,
-      y1: clientY,
-      x2: clientX,
-      y2: clientY,
-      toolType,
-      id: uuid(),
-    });
+        x1: clientX,
+        y1: clientY,
+        x2: clientX + (toolType === ToolTypes.RECTANGLE || toolType === ToolTypes.LINE ? 10 : 0),
+        y2: clientY + (toolType === ToolTypes.RECTANGLE || toolType === ToolTypes.LINE ? 10 : 0),
+        toolType,
+        id: uuid(),
+      });
+
 
     switch (toolType) {
       case ToolTypes.RECTANGLE:
@@ -118,6 +119,18 @@ const Whiteboard: React.FC = () => {
           x2: clientX,
           y2: clientY,
         };
+        if (updatedElement.type === ToolTypes.RECTANGLE || updatedElement.type === ToolTypes.LINE) {
+            const newElement = createElement({
+              x1: (updatedElement as RectangleElement | LineElement).x1,
+              y1: (updatedElement as RectangleElement | LineElement).y1,
+              x2: updatedElement.x2,
+              y2: updatedElement.y2,
+              toolType: updatedElement.type,
+              id: updatedElement.id,
+            });
+            const updatedElementWithRough = updatedElement as RectangleElement | LineElement;
+            updatedElementWithRough.roughElement = (newElement as RectangleElement | LineElement).roughElement;
+          }
         updateElementInStore(updatedElement);
         emitElementUpdate?.(updatedElement);
       }

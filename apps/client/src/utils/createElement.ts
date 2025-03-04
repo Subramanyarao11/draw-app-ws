@@ -6,8 +6,13 @@ import { Coordinates, CreateElementParams, Element } from "../types";
 const generator = rough.generator();
 
 const generateRectangle = ({ x1, y1, x2, y2 }: Coordinates): Drawable => {
-  return generator.rectangle(x1, y1, x2 - x1, y2 - y1);
-};
+    const width = Math.abs(x2 - x1);
+    const height = Math.abs(y2 - y1);
+    const startX = Math.min(x1, x2);
+    const startY = Math.min(y1, y2);
+    return generator.rectangle(startX, startY, width, height);
+  };
+
 
 const generateLine = ({ x1, y1, x2, y2 }: Coordinates): Drawable => {
   return generator.line(x1, y1, x2, y2);

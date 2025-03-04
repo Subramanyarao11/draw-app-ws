@@ -24,8 +24,12 @@ export const drawElement = ({ roughCanvas, context, element }: DrawElementParams
   switch (element.type) {
     case ToolTypes.RECTANGLE:
     case ToolTypes.LINE:
-      roughCanvas.draw((element as RectangleElement | LineElement).roughElement);
-      break;
+        if ((element as RectangleElement | LineElement).roughElement) {
+          roughCanvas.draw((element as RectangleElement | LineElement).roughElement);
+        } else {
+          console.error("No roughElement found on element:", element);
+        }
+        break;
     case ToolTypes.PENCIL:
       drawPencilElement(context, element as PencilElement);
       break;
