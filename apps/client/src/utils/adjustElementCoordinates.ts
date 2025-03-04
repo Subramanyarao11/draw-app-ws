@@ -1,5 +1,5 @@
-import { ToolTypes } from "../constants";
-import { ElementCoordinates, LineElement, RectangleElement } from "../types";
+import { ToolTypes } from '../constants';
+import { ElementCoordinates, LineElement, RectangleElement } from '../types';
 
 export interface Element {
   type: string;
@@ -9,7 +9,9 @@ export interface Element {
   y2: number;
 }
 
-export const adjustElementCoordinates = (element: RectangleElement | LineElement): ElementCoordinates | undefined  => {
+export const adjustElementCoordinates = (
+  element: RectangleElement | LineElement,
+): ElementCoordinates | undefined => {
   const { type, x1, y1, x2, y2 } = element;
 
   if (type === ToolTypes.RECTANGLE) {

@@ -1,6 +1,6 @@
-import { Drawable } from "roughjs/bin/core";
-import { RoughCanvas } from "roughjs/bin/canvas";
-import { ToolTypes } from "../constants";
+import { Drawable } from 'roughjs/bin/core';
+import { RoughCanvas } from 'roughjs/bin/canvas';
+import { ToolTypes } from '../constants';
 
 export interface Coordinates {
   x1: number;

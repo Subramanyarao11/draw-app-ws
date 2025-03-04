@@ -1,4 +1,4 @@
 export enum Actions {
-    DRAWING = "DRAWING",
-    WRITING = "WRITING",
-  }
+  DRAWING = 'DRAWING',
+  WRITING = 'WRITING',
+}

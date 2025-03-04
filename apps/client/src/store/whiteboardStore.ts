@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 import { ToolTypes } from '../constants';
 
 export interface Element {
@@ -21,17 +21,18 @@ const useWhiteboardStore = create<WhiteboardState>((set) => ({
 
   setToolType: (tool) => set({ tool }),
 
-  updateElement: (element) => set((state) => {
-    const index = state.elements.findIndex((el) => el.id === element.id);
+  updateElement: (element) =>
+    set((state) => {
+      const index = state.elements.findIndex((el) => el.id === element.id);
 
-    if (index === -1) {
-      return { elements: [...state.elements, element] };
-    } else {
-      const newElements = [...state.elements];
-      newElements[index] = element;
-      return { elements: newElements };
-    }
-  }),
+      if (index === -1) {
+        return { elements: [...state.elements, element] };
+      } else {
+        const newElements = [...state.elements];
+        newElements[index] = element;
+        return { elements: newElements };
+      }
+    }),
 
   setElements: (elements) => set({ elements }),
 }));

@@ -1,5 +1,10 @@
 import { useEffect, useCallback } from 'react';
-import { connectWithSocketServer, emitElementUpdate, emitClearWhiteboard, getSocket } from '../socket/socketManager';
+import {
+  connectWithSocketServer,
+  emitElementUpdate,
+  emitClearWhiteboard,
+  getSocket,
+} from '../socket/socketManager';
 import { Element } from '../store/whiteboardStore';
 
 const useWhiteboardSocket = () => {

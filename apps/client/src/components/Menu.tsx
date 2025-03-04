@@ -1,12 +1,12 @@
-import React from "react";
-import rectangleIcon from "../assets/rectangle.svg";
-import lineIcon from "../assets/line.svg";
-import rubberIcon from "../assets/rubber.svg";
-import pencilIcon from "../assets/pencil.svg";
-import textIcon from "../assets/text.svg";
-import { ToolTypes } from "../constants";
-import useWhiteboardStore from "../store/whiteboardStore";
-import { useSocket } from "../context/SocketContext";
+import React from 'react';
+import rectangleIcon from '../assets/rectangle.svg';
+import lineIcon from '../assets/line.svg';
+import rubberIcon from '../assets/rubber.svg';
+import pencilIcon from '../assets/pencil.svg';
+import textIcon from '../assets/text.svg';
+import { ToolTypes } from '../constants';
+import useWhiteboardStore from '../store/whiteboardStore';
+import { useSocket } from '../context/SocketContext';
 
 interface IconButtonProps {
   src: string;
@@ -35,11 +35,9 @@ const IconButton: React.FC<IconButtonProps> = ({ src, type, isRubber }) => {
   return (
     <button
       onClick={isRubber ? handleClearCanvas : handleToolChange}
-      className={
-        selectedToolType === type ? "menu_button_active" : "menu_button"
-      }
+      className={selectedToolType === type ? 'menu_button_active' : 'menu_button'}
     >
-      <img width="80%" height="80%" src={src} alt={type || "clear"} />
+      <img width="80%" height="80%" src={src} alt={type || 'clear'} />
     </button>
   );
 };
