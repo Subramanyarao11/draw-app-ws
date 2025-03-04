@@ -9,7 +9,7 @@ import { drawElement } from "../utils/drawElement";
 import { createElement } from "../utils/createElement";
 import { adjustmentRequired } from "../utils/adjustmentrequired";
 import { adjustElementCoordinates } from "../utils/adjustElementCoordinates";
-import { DrawElementParams, Element, LineElement, RectangleElement } from "../types";
+import { DrawElementParams, Element, LineElement, PencilElement, RectangleElement } from "../types";
 
 const Whiteboard: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -108,31 +108,47 @@ const Whiteboard: React.FC = () => {
     setSelectedElement(null);
   };
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
+
+    const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const { clientX, clientY } = event;
 
     if (action === Actions.DRAWING) {
       const index = elements.findIndex((el) => el.id === selectedElement?.id);
       if (index !== -1) {
-        const updatedElement = {
-          ...elements[index],
-          x2: clientX,
-          y2: clientY,
-        };
-        if (updatedElement.type === ToolTypes.RECTANGLE || updatedElement.type === ToolTypes.LINE) {
-            const newElement = createElement({
-              x1: (updatedElement as RectangleElement | LineElement).x1,
-              y1: (updatedElement as RectangleElement | LineElement).y1,
-              x2: updatedElement.x2,
-              y2: updatedElement.y2,
-              toolType: updatedElement.type,
-              id: updatedElement.id,
-            });
-            const updatedElementWithRough = updatedElement as RectangleElement | LineElement;
-            updatedElementWithRough.roughElement = (newElement as RectangleElement | LineElement).roughElement;
-          }
-        updateElementInStore(updatedElement);
-        emitElementUpdate?.(updatedElement);
+        const element = elements[index];
+
+        if (element.type === ToolTypes.PENCIL) {
+          const pencilElement = element as PencilElement;
+          const newPoints = [...pencilElement.points, { x: clientX, y: clientY }];
+
+          const updatedElement = {
+            ...pencilElement,
+            points: newPoints,
+          };
+
+          updateElementInStore(updatedElement);
+          emitElementUpdate?.(updatedElement);
+        } else if (element.type === ToolTypes.RECTANGLE || element.type === ToolTypes.LINE) {
+          const updatedElement = {
+            ...element,
+            x2: clientX,
+            y2: clientY,
+          };
+          const newElement = createElement({
+            x1: (updatedElement as RectangleElement | LineElement).x1,
+            y1: (updatedElement as RectangleElement | LineElement).y1,
+            x2: updatedElement.x2,
+            y2: updatedElement.y2,
+            toolType: updatedElement.type,
+            id: updatedElement.id,
+          });
+
+          const updatedElementWithRough = updatedElement as RectangleElement | LineElement;
+          updatedElementWithRough.roughElement = (newElement as RectangleElement | LineElement).roughElement;
+
+          updateElementInStore(updatedElement);
+          emitElementUpdate?.(updatedElement);
+        }
       }
     }
   };
